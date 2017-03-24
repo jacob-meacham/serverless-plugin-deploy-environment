@@ -22,6 +22,10 @@ class ServerlessDeployEnvironment {
           stage: {
             usage: 'The stage to use for stage-specific variables',
             shortcut: 's'
+          },
+          args: {
+            usage: 'Extra arguments to pass through to the subprocess',
+            shortcut: 'a'
           }
         }
       }
@@ -42,6 +46,7 @@ class ServerlessDeployEnvironment {
 
     for (const [k, v] of _.toPairs(resolved)) {
       // Add to the environment
+      this.serverless.service.provider.environment = this.serverless.service.provider.environment || {}
       this.serverless.service.provider.environment[k] = v
     }
   }
@@ -60,7 +65,8 @@ class ServerlessDeployEnvironment {
     const deployEnv = await this._resolveDeployEnvironment(this.options.stage)
     const env = _.cloneDeep(process.env)
     _.extend(env, deployEnv)
-    const output = childProcess.execSync(this.options.command, { env, cwd: process.cwd() }).toString()
+    const args = this.options.args || ''
+    const output = childProcess.execSync(`${this.options.command} ${args}`, { env, cwd: process.cwd() }).toString()
     for (const line of output.split('\n')) {
       winston.info(`[COMMAND OUTPUT]: ${line}`)
     }
