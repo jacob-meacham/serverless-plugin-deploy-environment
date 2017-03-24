@@ -50,7 +50,10 @@ class ServerlessDeployEnvironment {
     const prefix = this.config.prefix || 'LAMBDA'
     // Grab the file, and get the relevant stage
     const deployFile = await this.config.configFile
-    return _.mapKeys(deployFile[stage], (v, k) => `${prefix}_${k}`)
+    const env = _.cloneDeep(deployFile.default || {})
+    _.extend(env, deployFile[stage])
+
+    return _.mapKeys(env, (v, k) => `${prefix}_${k}`)
   }
 
   async _runWithEnvironment() {
