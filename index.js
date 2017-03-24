@@ -1,36 +1,66 @@
-import * as _ from 'lodash'
+import _ from 'lodash'
 import BB from 'bluebird'
+import child_process from 'child_process'
+import winston from 'winston'
 
 class ServerlessDeployEnvironment {
-  constructor(serverless) {
+  constructor(serverless, options) {
     this.serverless = serverless
     // Only meaningful for AWS
     this.provider = 'aws'
     this.config = serverless.service.custom.deployEnvironment
-    // No commands to run
-    this.commands = {}
+    this.options = options
+    this.commands = {
+      runWithEnvironment: {
+        usage: 'Runs the specified command with the serverless environment variables set',
+        lifecycleEvents: [ 'run' ],
+        options: {
+          command: {
+            usage: 'The command to run',
+            shortcut: 'c'
+          },
+          stage: {
+            usage: 'The stage to use for stage-specific variables',
+            shortcut: 's'
+          }
+        }
+      }
+    }
     // Run automatically as part of the deploy
     this.hooks = {
       // Hook before deploying the function
       'before:deploy:functions': () => BB.bind(this).then(this._addDeployEnvironment),
       // Hook before running SLS offline
-      'before:offline:start': () => BB.bind(this).then(this._addDeployEnvironment)
+      'before:offline:start': () => BB.bind(this).then(this._addDeployEnvironment),
+      // Command hook
+      'runWithEnvironment:run': () => BB.bind(this).then(this._runWithEnvironment)
     }
   }
 
   async _addDeployEnvironment() {
-    const resolved = await this._resolveDeployEnvironment()
-    const prefix = this.config.prefix || 'LAMBDA'
+    const resolved = await this._resolveDeployEnvironment(this.serverless.service.provider.stage)
+
     for (const [k, v] of _.toPairs(resolved)) {
       // Add to the environment
-      this.serverless.service.provider.environment[`${prefix}_${k}`] = v
+      this.serverless.service.provider.environment[k] = v
     }
   }
 
-  async _resolveDeployEnvironment() {
+  async _resolveDeployEnvironment(stage) {
+    const prefix = this.config.prefix || 'LAMBDA'
     // Grab the file, and get the relevant stage
     const deployFile = await this.config.configFile
-    return deployFile[this.serverless.service.provider.stage]
+    return _.mapKeys(deployFile[stage], (v, k) => `${prefix}_${k}`)
+  }
+
+  async _runWithEnvironment() {
+    const deployEnv = await this._resolveDeployEnvironment(this.options.stage)
+    const env = _.cloneDeep(process.env)
+    _.extend(env, deployEnv)
+    const output = child_process.execSync(this.options.command, { env, cwd: process.cwd() }).toString()
+    for (const line of output.split('\n')) {
+      winston.info(`[COMMAND OUTPUT]: ${line}`)
+    }
   }
 }
 
