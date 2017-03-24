@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import BB from 'bluebird'
-import child_process from 'child_process'
+import childProcess from 'child_process'
 import winston from 'winston'
 
 class ServerlessDeployEnvironment {
@@ -13,7 +13,7 @@ class ServerlessDeployEnvironment {
     this.commands = {
       runWithEnvironment: {
         usage: 'Runs the specified command with the serverless environment variables set',
-        lifecycleEvents: [ 'run' ],
+        lifecycleEvents: ['run'],
         options: {
           command: {
             usage: 'The command to run',
@@ -60,7 +60,7 @@ class ServerlessDeployEnvironment {
     const deployEnv = await this._resolveDeployEnvironment(this.options.stage)
     const env = _.cloneDeep(process.env)
     _.extend(env, deployEnv)
-    const output = child_process.execSync(this.options.command, { env, cwd: process.cwd() }).toString()
+    const output = childProcess.execSync(this.options.command, { env, cwd: process.cwd() }).toString()
     for (const line of output.split('\n')) {
       winston.info(`[COMMAND OUTPUT]: ${line}`)
     }
