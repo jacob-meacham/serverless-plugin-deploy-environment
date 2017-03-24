@@ -33,7 +33,7 @@ class ServerlessDeployEnvironment {
     // Run automatically as part of the deploy
     this.hooks = {
       // Hook before deploying the function
-      'before:deploy:functions': () => BB.bind(this).then(this._addDeployEnvironment),
+      'before:deploy:createDeploymentArtifacts': () => BB.bind(this).then(this._addDeployEnvironment),
       // Hook before running SLS offline
       'before:offline:start': () => BB.bind(this).then(this._addDeployEnvironment),
       // Command hook
