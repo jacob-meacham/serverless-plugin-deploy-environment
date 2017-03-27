@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import BB from 'bluebird'
 import childProcess from 'child_process'
 import winston from 'winston'
 
@@ -33,11 +32,11 @@ class ServerlessDeployEnvironment {
     // Run automatically as part of the deploy
     this.hooks = {
       // Hook before deploying the function
-      'before:deploy:createDeploymentArtifacts': () => BB.bind(this).then(this._addDeployEnvironment),
+      'before:deploy:createDeploymentArtifacts': () => Promise.bind(this).then(this._addDeployEnvironment),
       // Hook before running SLS offline
-      'before:offline:start': () => BB.bind(this).then(this._addDeployEnvironment),
+      'before:offline:start': () => Promise.bind(this).then(this._addDeployEnvironment),
       // Command hook
-      'runWithEnvironment:run': () => BB.bind(this).then(this._runWithEnvironment)
+      'runWithEnvironment:run': () => Promise.bind(this).then(this._runWithEnvironment)
     }
   }
 
@@ -54,7 +53,7 @@ class ServerlessDeployEnvironment {
   async _resolveDeployEnvironment(stage) {
     const prefix = this.config.prefix || 'LAMBDA'
     // Grab the file, and get the relevant stage
-    const deployFile = await this.config.configFile
+    const deployFile = this.config.configFile
     const env = _.cloneDeep(deployFile.default || {})
     _.extend(env, deployFile[stage])
 

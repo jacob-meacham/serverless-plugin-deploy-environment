@@ -29,7 +29,6 @@
   "homepage": "https://github.com/DopplerLabs/backend-infrastructure",
   "dependencies": {
     "babel-runtime": "6.20.0",
-    "bluebird": "3.4.7",
     "js-yaml": "3.8.2",
     "lodash": "4.17.4",
     "winston": "2.3.0"
