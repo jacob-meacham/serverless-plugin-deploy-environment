@@ -1,8 +1,6 @@
 import _ from 'lodash'
 import childProcess from 'child_process'
-import fs from 'fs'
 import winston from 'winston'
-import yaml from 'js-yaml'
 
 class ServerlessDeployEnvironment {
   constructor(serverless, options) {
@@ -41,35 +39,30 @@ class ServerlessDeployEnvironment {
       'runWithEnvironment:run': () => this._runWithEnvironment()
     }
 
-    // Resolve the configuration from the passed-in parameters
-    this.deployEnvironment = this._resolveDeployEnvironment()
-    // Augment the environment of the process with all scopes
-    _.forOwn(this.deployEnvironment, env => _.extend(process.env, env))
+    // Explicitly load the variable syntax, so that calls to populateProperty work
+    // TODO(msills): Figure out how to avoid this. For now, it seems safe.
+    serverless.variables.loadVariableSyntax()
+    // Explicitly resolve these here, so that we can apply any transformations that we want
+    serverless.service.deployVariables = serverless.variables.populateProperty(serverless.service.custom.deploy.variables, false)[options.stage] // eslint-disable-line
+    const envs = serverless.variables.populateProperty(serverless.service.custom.deploy.environments, false)
+    serverless.service.deployEnvironment = _.merge(envs.default, envs[options.stage]) // eslint-disable-line
   }
 
-  _resolveDeployEnvironment() {
-    const deployFile = yaml.safeLoad(fs.readFileSync(this.config.configFile))
-    const prefix = this.config.prefix || 'LAMBDA'
-    // Grab the file, and get the relevant stage
-    const env = _.cloneDeep(deployFile.default || {})
-    _.merge(env, deployFile[this.options.stage])
-
-    // Function that prep ends the prefix to the keys of an object
-    const prefixMapper = (o => _.mapKeys(o, (v, k) => `${prefix}_${k}`))
-    // Apply the prefix prepending to all scopes (sls and lambda)
-    return _.mapValues(env, prefixMapper)
+  async _resolveDeployEnvironment() {
+    return this.serverless.service.deployEnvironment
   }
 
   async _addDeployEnvironment() {
+    const env = await this._resolveDeployEnvironment()
     // Make sure that the environment exists (if no environment is specified, it's undefined), and augment it with the
-    // lambda scoped environment
-    this.serverless.service.provider.environment = _.extend(
-      this.serverless.service.provider.environment, this.deployEnvironment.lambda)
+    // scoped environment
+    this.serverless.service.provider.environment = _.extend(this.serverless.service.provider.environment, env)
   }
 
   async _runWithEnvironment() {
+    const env = await this._resolveDeployEnvironment()
     const args = this.options.args || ''
-    const output = childProcess.execSync(`${this.options.command} ${args}`, { cwd: process.cwd() }).toString()
+    const output = childProcess.execSync(`${this.options.command} ${args}`, { env, cwd: process.cwd() }).toString()
     for (const line of output.split('\n')) {
       winston.info(`[COMMAND OUTPUT]: ${line}`)
     }
