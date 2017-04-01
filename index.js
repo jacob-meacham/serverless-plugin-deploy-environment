@@ -60,7 +60,9 @@ class ServerlessDeployEnvironment {
   }
 
   async _runWithEnvironment() {
-    const env = await this._resolveDeployEnvironment()
+    const deployEnv = await this._resolveDeployEnvironment()
+    const env = {}
+    _.merge(env, process.env, deployEnv) // Merge the current environment, overridden with the deploy environment
     const args = this.options.args || ''
     const output = childProcess.execSync(`${this.options.command} ${args}`, { env, cwd: process.cwd() }).toString()
     for (const line of output.split('\n')) {

@@ -1,10 +1,13 @@
 {
-  "plugins": [
-    "transform-runtime",
-    "transform-es2015-template-literals",
-    "transform-async-to-generator"
-  ],
   "presets": [
-    "es2015"
+    ["env", {
+      "targets": {
+        "node": 7.0
+      },
+      "useBuiltIns": true
+    }]
+  ],
+  "plugins": [
+    "transform-runtime"
   ]
 }
