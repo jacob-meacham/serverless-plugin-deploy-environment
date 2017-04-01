@@ -1,12 +1,12 @@
 {
   "name": "serverless-deploy-environment",
-  "version": "0.2.0",
+  "version": "0.2.4",
   "description": "Plugin the augments the serverless provider environment with deployment variables",
   "main": "build/bundle.js",
   "files": [
     "build/"
   ],
-    "engines": {
+  "engines": {
     "node": ">=7.0"
   },
   "repository": {
@@ -32,6 +32,8 @@
   "homepage": "https://github.com/DopplerLabs/backend-infrastructure",
   "dependencies": {
     "babel-runtime": "6.20.0",
+    "credstash": "1.0.42",
+    "deasync": "0.1.9",
     "lodash": "4.17.4",
     "winston": "2.3.0"
   },
@@ -47,7 +49,8 @@
     "eslint-plugin-jsx-a11y": "3.0.2",
     "eslint-plugin-react": "6.9.0",
     "rimraf": "2.5.4",
-    "webpack": "2.3.1"
+    "webpack": "2.3.1",
+    "webpack-node-externals": "1.5.4"
   },
   "scripts": {
     "clean": "rimraf build && mkdir build",

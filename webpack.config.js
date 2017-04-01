@@ -2,6 +2,7 @@
  * Created by msills on 1/11/17.
  */
 const path = require('path')
+const nodeExternals = require('webpack-node-externals')
 
 const env = process.env.NODE_ENV || 'development'
 const DEV = env === 'development'
@@ -18,7 +19,9 @@ const config = {
     __dirname: true
   },
   target: 'node',
-  externals: [],
+  externals: [
+    nodeExternals()
+  ],
   resolve: {
     extensions: ['.js']
   },
