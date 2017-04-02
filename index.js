@@ -70,7 +70,9 @@ class ServerlessDeployEnvironment {
     const envs = serverless.variables.populateProperty(serverless.service.custom.deploy.environments, false)
     serverless.service.deployEnvironment = _.merge(envs.default, envs[stage]) // eslint-disable-line
 
-    this._resolveCredstashEnvironment()
+    if (!options.credstash || options.credstash === 'true') {
+      this._resolveCredstashEnvironment()
+    }
   }
 
   _resolveCredstashEnvironment() {
