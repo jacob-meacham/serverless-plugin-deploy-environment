@@ -50,8 +50,10 @@ class ServerlessDeployEnvironment {
     this.hooks = {
       // Hook before deploying the function
       'before:deploy:createDeploymentArtifacts': () => this._addDeployEnvironment(),
-      // Hook before running SLS offline
+      // Hook before running sls offline
       'before:offline:start': () => this._addDeployEnvironment(),
+      // Hook before running sls webpack invoke
+      'before:webpack:invoke:invoke': () => this._addDeployEnvironment(),
       // Command hook
       'runWithEnvironment:run': () => this._runWithEnvironment()
     }
