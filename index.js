@@ -1,10 +1,12 @@
 import _ from 'lodash'
+import AWS from 'aws-sdk'
 import childProcess from 'child_process'
 import winston from 'winston'
 import Credstash from 'credstash'
-import deasync from 'deasync'
+import deasyncPromise from 'deasync-promise'
 
-const CREDSTASH_PREFIX = 'CREDSTASH_ENV_'
+const CREDSTASH_PREFIX = 'credstash'
+const CREDSTASH_PATTERN = /^credstash:[\w-]+$/
 
 const credstash = new Credstash()
 function _fetchCred(name) {
@@ -64,6 +66,31 @@ class ServerlessDeployEnvironment {
     }
     winston.debug(`Getting deploy variables for stage ${stage}`)
 
+    // Allow credstash variables to be resolved
+    // TODO(msills): Break into a separate plugin
+    if (!options.credstash || options.credstash === 'true') {
+      const delegate = serverless.variables.getValueFromSource.bind(serverless.variables)
+      serverless.variables.getValueFromSource = function getValueFromSource(variableString) { // eslint-disable-line no-param-reassign, max-len
+        if (variableString.startsWith(`${CREDSTASH_PREFIX}:`)) {
+          // Configure the AWS region
+          const region = serverless.service.provider.region
+          if (!region) {
+            throw new Error('Cannot hydrate Credstash variables without a region')
+          }
+          AWS.config.update({ region })
+
+          if (!variableString.match(CREDSTASH_PATTERN)) {
+            throw new Error(`Invalid Credstash format for variable ${variableString}`)
+          }
+          const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]
+          return deasyncPromise(_fetchCred(key))
+        }
+
+        return delegate(variableString)
+      }
+    }
+
+
     // Explicitly load the variable syntax, so that calls to populateProperty work
     // TODO(msills): Figure out how to avoid this. For now, it seems safe.
     serverless.variables.loadVariableSyntax()
@@ -71,48 +98,6 @@ class ServerlessDeployEnvironment {
     serverless.service.deployVariables = serverless.variables.populateProperty(serverless.service.custom.deploy.variables, false)[stage] // eslint-disable-line
     const envs = serverless.variables.populateProperty(serverless.service.custom.deploy.environments, false)
     serverless.service.deployEnvironment = _.merge(envs.default, envs[stage]) // eslint-disable-line
-
-    if (!options.credstash || options.credstash === 'true') {
-      this._resolveCredstashEnvironment()
-    }
-  }
-
-  _resolveCredstashEnvironment() {
-    const deployEnvironment = this.serverless.service.deployEnvironment
-
-    const credstashKeys = Object.keys(deployEnvironment).filter((k) => {
-      return k.startsWith(CREDSTASH_PREFIX)
-    })
-
-    // Gather promises to fetch the creds from credstash
-    const credPromises = credstashKeys.map((k) => {
-      const resolvedKey = k.slice(CREDSTASH_PREFIX.length)
-      return _fetchCred(deployEnvironment[k])
-      .then((cred) => {
-        return {
-          key: resolvedKey,
-          secret: cred
-        }
-      })
-    })
-
-    const allCredsPromise = Promise.all(credPromises)
-    .then((resolvedCreds) => {
-      allCredsPromise.done = true
-      for (const cred of resolvedCreds) {
-        deployEnvironment[cred.key] = cred.secret
-      }
-    }).catch((err) => {
-      allCredsPromise.err = err
-      allCredsPromise.done = true
-    })
-
-    allCredsPromise.done = false
-    deasync.loopWhile(() => !allCredsPromise.done)
-
-    if (allCredsPromise.err) {
-      throw allCredsPromise.err
-    }
   }
 
   async _resolveDeployEnvironment() {
