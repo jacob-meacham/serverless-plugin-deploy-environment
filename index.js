@@ -68,28 +68,31 @@ class ServerlessDeployEnvironment {
 
     // Allow credstash variables to be resolved
     // TODO(msills): Break into a separate plugin
-    if (!options.credstash || options.credstash === 'true') {
-      const delegate = serverless.variables.getValueFromSource.bind(serverless.variables)
-      serverless.variables.getValueFromSource = function getValueFromSource(variableString) { // eslint-disable-line no-param-reassign, max-len
-        if (variableString.startsWith(`${CREDSTASH_PREFIX}:`)) {
-          // Configure the AWS region
-          const region = serverless.service.provider.region
-          if (!region) {
-            throw new Error('Cannot hydrate Credstash variables without a region')
-          }
-          AWS.config.update({ region })
-
-          if (!variableString.match(CREDSTASH_PATTERN)) {
-            throw new Error(`Invalid Credstash format for variable ${variableString}`)
-          }
-          const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]
-          return deasyncPromise(_fetchCred(key))
+    const delegate = serverless.variables.getValueFromSource.bind(serverless.variables)
+    serverless.variables.getValueFromSource = function getValueFromSource(variableString) { // eslint-disable-line no-param-reassign, max-len
+      if (variableString.startsWith(`${CREDSTASH_PREFIX}:`)) {
+        // If we are not to resolve credstash variables here, just write the variable through unchanged
+        if (options.credstash && options.credstash !== 'true') {
+          winston.info(`Skipping credstash resolution for variable '${variableString}'`)
+          return variableString
         }
 
-        return delegate(variableString)
-      }
-    }
+        // Configure the AWS region
+        const region = serverless.service.provider.region
+        if (!region) {
+          throw new Error('Cannot hydrate Credstash variables without a region')
+        }
+        AWS.config.update({ region })
 
+        if (!variableString.match(CREDSTASH_PATTERN)) {
+          throw new Error(`Invalid Credstash format for variable ${variableString}`)
+        }
+        const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]
+        return deasyncPromise(_fetchCred(key))
+      }
+
+      return delegate(variableString)
+    }
 
     // Explicitly load the variable syntax, so that calls to populateProperty work
     // TODO(msills): Figure out how to avoid this. For now, it seems safe.
