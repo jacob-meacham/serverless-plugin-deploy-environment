@@ -66,6 +66,9 @@ class ServerlessDeployEnvironment {
     }
     winston.debug(`Getting deploy variables for stage ${stage}`)
 
+    // TODO: This doesn't belong here, but we need to set the options before populating the new properties.
+    serverless.variables.options = options // eslint-disable-line
+
     // Allow credstash variables to be resolved
     // TODO(msills): Break into a separate plugin
     const delegate = serverless.variables.getValueFromSource.bind(serverless.variables)
@@ -88,7 +91,7 @@ class ServerlessDeployEnvironment {
           throw new Error(`Invalid Credstash format for variable ${variableString}`)
         }
         const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]
-        return deasyncPromise(_fetchCred(key))
+        return _fetchCred(key)
       }
 
       return delegate(variableString)
@@ -98,8 +101,8 @@ class ServerlessDeployEnvironment {
     // TODO(msills): Figure out how to avoid this. For now, it seems safe.
     serverless.variables.loadVariableSyntax()
     // Explicitly resolve these here, so that we can apply any transformations that we want
-    serverless.service.deployVariables = serverless.variables.populateProperty(serverless.service.custom.deploy.variables, false)[stage] // eslint-disable-line
-    const envs = serverless.variables.populateProperty(serverless.service.custom.deploy.environments, false)
+    serverless.service.deployVariables = deasyncPromise(serverless.variables.populateProperty(serverless.service.custom.deploy.variables, false))[stage] // eslint-disable-line
+    const envs = deasyncPromise(serverless.variables.populateProperty(serverless.service.custom.deploy.environments, false)) // eslint-disable-line
     serverless.service.deployEnvironment = _.merge(envs.default, envs[stage]) // eslint-disable-line
   }
 
