@@ -77,7 +77,7 @@ class ServerlessDeployEnvironment {
         // If we are not to resolve credstash variables here, just write the variable through unchanged
         if (options.credstash && options.credstash !== 'true') {
           winston.info(`Skipping credstash resolution for variable '${variableString}'`)
-          return variableString
+          return Promise.resolve(variableString)
         }
 
         // Configure the AWS region
