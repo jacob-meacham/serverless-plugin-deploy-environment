@@ -8,3 +8,7 @@ npm-debug.log
 
 # Build artifact
 build/
+.coverage
+
+# OS
+.DS_Store
