@@ -12,6 +12,7 @@
     ["transform-object-rest-spread", {
       "useBuiltIns": true
     }],
+    "espower",
     "add-module-exports"
   ],
   "env": {

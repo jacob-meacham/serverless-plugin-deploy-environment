@@ -35,6 +35,15 @@
     "url": "https://github.com/DopplerLabs/serverless-plugin-deploy-environment/issues"
   },
   "homepage": "https://github.com/DopplerLabs/serverless-plugin-deploy-environment",
+  "scripts": {
+    "lint": "eslint .",
+    "eslint": "eslint",
+    "test": "nyc ava",
+    "test:watch": "ava --watch",
+    "build:node": "cross-env BABEL_ENV=production babel src --out-dir lib",
+    "build": "npm run lint && npm run test && npm run build:node",
+    "ci:coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
   "dependencies": {
     "babel-runtime": "6.23.0",
     "credstash": "1.0.42",
@@ -43,7 +52,7 @@
     "winston": "2.3.1"
   },
   "devDependencies": {
-    "aws-sdk-mock": "^1.7.0",
+    "ava": "0.21.0",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
@@ -52,30 +61,28 @@
     "babel-plugin-transform-runtime": "6.23.0",
     "babel-preset-env": "1.6.0",
     "babel-register": "6.24.1",
-    "chai": "4.1.0",
-    "chai-as-promised": "7.1.1",
     "coveralls": "2.13.1",
     "cross-env": "5.0.1",
     "eslint": "4.3.0",
     "eslint-config-standard": "10.2.1",
+    "eslint-plugin-ava": "4.2.1",
     "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-node": "5.1.1",
     "eslint-plugin-promise": "3.5.0",
     "eslint-plugin-standard": "3.0.1",
-    "mocha": "3.4.2",
-    "mocha-sinon": "2.0.0",
     "nyc": "11.0.3",
     "rimraf": "2.6.1",
-    "serverless": "^1.18.0"
+    "serverless": "1.18.0",
+    "sinon": "2.3.8",
+    "sinon-as-promised": "4.0.3"
   },
-  "scripts": {
-    "lint": "eslint .",
-    "eslint": "eslint",
-    "test": "mocha --require babel-register test/",
-    "test:watch": "mocha --require babel-register --watch test/",
-    "build:node": "cross-env BABEL_ENV=production babel src --out-dir lib",
-    "build": "npm run lint && npm run test && npm run build:node",
-    "ci:coverage": "nyc report --reporter=text-lcov | coveralls"
+  "peerDependencies": {
+    "serverless": ">=1.16.0"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   }
 }
