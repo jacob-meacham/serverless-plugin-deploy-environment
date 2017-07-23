@@ -30,7 +30,7 @@ test.afterEach.always(t => {
 test('Throws if no stage is found', t => {
   const sls = new Serverless()
 
-  t.throws(() => initServerlessPlugin(sls))
+  t.throws(() => initServerlessPlugin(sls), /No stage found.*/)
 })
 
 test('Uses default values if no configuration', t => {
@@ -124,7 +124,8 @@ const CREDSTASH_CONFIG = {
     stage: 'test'
   },
   test: {
-    a: '${credstash:testCredential}' // eslint-disable-line
+    a: '${credstash:testCredential}', // eslint-disable-line
+    other: '${self:test.a}' // eslint-disable-line
   }
 }
 
@@ -148,9 +149,9 @@ test('Throws if credstash errors', async t => {
 
   const plugin = initServerlessPlugin(sls)
   t.context.sandbox.stub(plugin.credstash, 'get').callsFake((name, cb) => {
-    cb(new Error())
+    cb(new Error('This is my test error'))
   })
-  await t.throws(sls.variables.populateService())
+  await t.throws(sls.variables.populateService(), /This is my test error/)
 })
 
 test('Skips credstash populate if requested', async t => {
@@ -172,23 +173,32 @@ test('Throws if populating credstash and no region is specified', async t => {
   sls.service.provider.region = null
 
   initServerlessPlugin(sls)
-  await t.throws(sls.variables.populateService())
+  await t.throws(sls.variables.populateService(), /Cannot hydrate Credstash.*/)
 })
 
-test('Throws if populating credstash and variable does not match pattern', async t => {
+test('Merges environment', async t => {
   const sls = new Serverless()
 
   sls.service.custom = {
     defaults: {
       stage: 'test'
     },
-    test: {
-      a: '${credstash:test_Credential3}' // eslint-disable-line
+    deploy: {
+      environments: {
+        default: { a: 1 },
+        test: {
+          b: 'foo'
+        }
+      }
     }
   }
 
-  initServerlessPlugin(sls)
-  await t.throws(sls.variables.populateService())
+  const plugin = initServerlessPlugin(sls)
+  await plugin._addDeployEnvironment()
+  t.deepEqual(sls.service.provider.environment, {
+    a: 1,
+    b: 'foo'
+  })
 })
 
 test.serial('Runs command with correct environment', async t => {

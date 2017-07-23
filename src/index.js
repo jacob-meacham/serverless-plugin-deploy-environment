@@ -6,7 +6,6 @@ import Credstash from 'credstash'
 import deasyncPromise from 'deasync-promise'
 
 const CREDSTASH_PREFIX = 'credstash'
-const CREDSTASH_PATTERN = /^credstash:[\w-]+$/
 
 function _fetchCred(name, credstash) {
   return new Promise((resolve, reject) => {
@@ -61,9 +60,9 @@ class ServerlessDeployEnvironment {
       'runWithEnvironment:run': () => this._runWithEnvironment()
     }
 
-    const stage = options.stage || serverless.service.custom.defaults.stage
+    const stage = options.stage || _.get(serverless, 'service.custom.defaults.stage')
     if (!stage) {
-      throw new Error('No stage found for serverless-deploy-environment')
+      throw new Error('No stage found for serverless-plugin-deploy-environment')
     }
     winston.debug(`Getting deploy variables for stage ${stage}`)
 
@@ -89,9 +88,6 @@ class ServerlessDeployEnvironment {
         }
         AWS.config.update({ region })
 
-        if (!variableString.match(CREDSTASH_PATTERN)) {
-          return Promise.reject(new Error(`Invalid Credstash format for variable ${variableString}`))
-        }
         const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]
         return _fetchCred(key, credstash)
       }
