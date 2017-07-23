@@ -8,6 +8,15 @@
     }]
   ],
   "plugins": [
-    "transform-runtime"
-  ]
+    "transform-runtime",
+    ["transform-object-rest-spread", {
+      "useBuiltIns": true
+    }],
+    "add-module-exports"
+  ],
+  "env": {
+    "development": {
+      "sourceMaps": "inline"
+    }
+  }
 }
