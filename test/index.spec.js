@@ -5,12 +5,6 @@ import _ from 'lodash'
 import childProcess from 'child_process'
 import ServerlessDeployEnvironment from '../src'
 
-/**
- * Creates a fake serverless instance
- * @param  {function} options.modifyVariables Allows modifying variables before
- * @param  {function} options.modifyService   [description]
- * @return {Serverless}
- */
 function initServerlessPlugin(sls) {
   sls.service.provider.name = 'aws'
   sls.pluginManager.addPlugin(ServerlessDeployEnvironment)
