@@ -1,11 +1,8 @@
 ---
-extends: [standard, plugin:mocha/recommended]
-plugins: [mocha]
-env:
-  node: true
-  mocha: true
+extends: [standard, plugin:ava/recommended]
+plugins: [ava]
 rules:
   space-before-function-paren: ["error", {
     "anonymous": "never",
     "named": "never",
-    "asyncArrow": "always"]
+    "asyncArrow": "always" }]
