@@ -8,6 +8,16 @@
     }]
   ],
   "plugins": [
-    "transform-runtime"
-  ]
+    "transform-runtime",
+    ["transform-object-rest-spread", {
+      "useBuiltIns": true
+    }],
+    "espower",
+    "add-module-exports"
+  ],
+  "env": {
+    "development": {
+      "sourceMaps": "inline"
+    }
+  }
 }

@@ -6,10 +6,8 @@ import Credstash from 'credstash'
 import deasyncPromise from 'deasync-promise'
 
 const CREDSTASH_PREFIX = 'credstash'
-const CREDSTASH_PATTERN = /^credstash:[\w-]+$/
 
-const credstash = new Credstash()
-function _fetchCred(name) {
+function _fetchCred(name, credstash) {
   return new Promise((resolve, reject) => {
     credstash.get(name, (err, secret) => {
       if (err) {
@@ -24,6 +22,8 @@ function _fetchCred(name) {
 class ServerlessDeployEnvironment {
   constructor(serverless, options) {
     this.serverless = serverless
+    this.credstash = new Credstash()
+
     // Only meaningful for AWS
     this.provider = 'aws'
     this.config = serverless.service.custom.deployEnvironment
@@ -60,9 +60,9 @@ class ServerlessDeployEnvironment {
       'runWithEnvironment:run': () => this._runWithEnvironment()
     }
 
-    const stage = options.stage || serverless.service.custom.defaults.stage
+    const stage = options.stage || _.get(serverless, 'service.custom.defaults.stage')
     if (!stage) {
-      throw new Error('No stage found for serverless-deploy-environment')
+      throw new Error('No stage found for serverless-plugin-deploy-environment')
     }
     winston.debug(`Getting deploy variables for stage ${stage}`)
 
@@ -72,6 +72,7 @@ class ServerlessDeployEnvironment {
     // Allow credstash variables to be resolved
     // TODO(msills): Break into a separate plugin
     const delegate = serverless.variables.getValueFromSource.bind(serverless.variables)
+    const credstash = this.credstash
     serverless.variables.getValueFromSource = function getValueFromSource(variableString) { // eslint-disable-line no-param-reassign, max-len
       if (variableString.startsWith(`${CREDSTASH_PREFIX}:`)) {
         // If we are not to resolve credstash variables here, just write the variable through unchanged
@@ -83,27 +84,31 @@ class ServerlessDeployEnvironment {
         // Configure the AWS region
         const region = serverless.service.provider.region
         if (!region) {
-          throw new Error('Cannot hydrate Credstash variables without a region')
+          return Promise.reject(new Error('Cannot hydrate Credstash variables without a region'))
         }
         AWS.config.update({ region })
 
-        if (!variableString.match(CREDSTASH_PATTERN)) {
-          throw new Error(`Invalid Credstash format for variable ${variableString}`)
-        }
         const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]
-        return _fetchCred(key)
+        return _fetchCred(key, credstash)
       }
 
       return delegate(variableString)
     }
 
+    if (!serverless.service.custom.deploy) {
+      winston.warn('No deploy object found in custom, even though the serverless-deploy-environment plugin is loaded.')
+    }
+
+    const deployVariables = _.get(serverless, 'service.custom.deploy.variables', { })
+    const deployEnvironment = _.get(serverless, 'service.custom.deploy.environments', { })
+
     // Explicitly load the variable syntax, so that calls to populateProperty work
     // TODO(msills): Figure out how to avoid this. For now, it seems safe.
     serverless.variables.loadVariableSyntax()
     // Explicitly resolve these here, so that we can apply any transformations that we want
-    serverless.service.deployVariables = deasyncPromise(serverless.variables.populateProperty(serverless.service.custom.deploy.variables, false))[stage] // eslint-disable-line
-    const envs = deasyncPromise(serverless.variables.populateProperty(serverless.service.custom.deploy.environments, false)) // eslint-disable-line
-    serverless.service.deployEnvironment = _.merge(envs.default, envs[stage]) // eslint-disable-line
+    serverless.service.deployVariables = deasyncPromise(serverless.variables.populateProperty(deployVariables, false))[stage] || { } // eslint-disable-line
+    const envs = deasyncPromise(serverless.variables.populateProperty(deployEnvironment, false)) // eslint-disable-line
+    serverless.service.deployEnvironment = _.merge(envs.default || { }, envs[stage]) // eslint-disable-line
   }
 
   async _resolveDeployEnvironment() {
