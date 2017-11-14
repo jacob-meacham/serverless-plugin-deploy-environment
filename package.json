@@ -1,6 +1,6 @@
 {
   "name": "serverless-plugin-deploy-environment",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Plugin the augments the serverless provider environment with deployment variables",
   "main": "lib/index.js",
   "files": [
@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "babel-runtime": "6.23.0",
-    "credstash": "1.0.42",
+    "credstash": "1.0.44",
     "deasync-promise": "1.0.1",
     "lodash": "4.17.4",
     "winston": "2.3.1"
