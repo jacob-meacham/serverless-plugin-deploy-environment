@@ -83,6 +83,8 @@ custom:
 Please note that because these are resolved at build time, the plain-text passwords WILL be viewable in Cloudformation and on the Lambda dashboard.
 
 # Version History
+* 1.0.3
+  - Fix packaging issue
 * 1.0.2
   - Bump version of credstash to deal with change in API (Thanks @concon121)
 * 1.0.1
