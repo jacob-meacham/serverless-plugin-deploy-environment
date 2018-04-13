@@ -5,7 +5,7 @@
 
 This plugin exposes per-stage deployment variables and deployment environment, and allows users to run commands with the environment of a given stage. The defined deployment environment is automatically merged with the serverless provider environment. It also optionally resolves [credstash](https://github.com/fugue/credstash) variables. The benefit of this is that its simpler to manage different variables for each environment, and makes the addition of default environment variables simple.
 
-See our [docs](https://dopplerlabs.github.io/serverless-plugin-deploy-environment/) for full documentation.
+See our [docs](https://jemonjam.com/serverless-plugin-deploy-environment ) for full documentation.
 
 # Usage
 ## Basic Usage
