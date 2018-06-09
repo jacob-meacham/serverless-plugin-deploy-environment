@@ -83,6 +83,8 @@ custom:
 Please note that because these are resolved at build time, the plain-text passwords WILL be viewable in Cloudformation and on the Lambda dashboard.
 
 # Version History
+* 1.1.0
+  - Change invocation target, to play nicely with other offline plugins (like serverless-offline-sns)
 * 1.0.3
   - Fix packaging issue
 * 1.0.2
