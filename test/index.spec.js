@@ -85,6 +85,34 @@ test('deployVariables are populated by stage', t => {
   t.deepEqual(sls.service.deployVariables, { })
 })
 
+test('deployVariables merges defaults', t => {
+  const sls = new Serverless()
+
+  const expectedDeployVariables = {
+    a: 1,
+    b: { a: 2  },
+    c: ['a', 'b', 'c']
+  }
+
+  sls.service.custom = {
+    defaults: {
+      stage: 'test'
+    },
+    deploy: {
+      variables: {
+        default: { a: 1 },
+        test: {
+          b: { a: 2 },
+          c: ['a', 'b', 'c']
+        }
+      }
+    }
+  }
+
+  initServerlessPlugin(sls)
+  t.deepEqual(sls.service.deployVariables, expectedDeployVariables)
+})
+
 test('deployEnvironments merges defaults', t => {
   const sls = new Serverless()
 
