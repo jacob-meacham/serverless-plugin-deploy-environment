@@ -90,7 +90,7 @@ test('deployVariables merges defaults', t => {
 
   const expectedDeployVariables = {
     a: 1,
-    b: { a: 2  },
+    b: { a: 2 },
     c: ['a', 'b', 'c']
   }
 
