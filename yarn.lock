@@ -1547,9 +1547,9 @@ create-thenable@~1.0.0:
     object.omit "~2.0.0"
     unique-concat "~0.2.2"
 
-credstash@1.0.42:
-  version "1.0.42"
-  resolved "https://registry.yarnpkg.com/credstash/-/credstash-1.0.42.tgz#31db90d1a496dcb485758f4a8154d10cd28fd04f"
+credstash@1.0.44:
+  version "1.0.44"
+  resolved "https://registry.yarnpkg.com/credstash/-/credstash-1.0.44.tgz#7e587c64be45da9eb2e626287e35f367b7601052"
   dependencies:
     aes-js "0.2.2"
     async "1.5.2"
