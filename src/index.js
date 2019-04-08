@@ -106,7 +106,8 @@ class ServerlessDeployEnvironment {
     // TODO(msills): Figure out how to avoid this. For now, it seems safe.
     serverless.variables.loadVariableSyntax()
     // Explicitly resolve these here, so that we can apply any transformations that we want
-    serverless.service.deployVariables = deasyncPromise(serverless.variables.populateProperty(deployVariables, false))[stage] || { } // eslint-disable-line
+    const vars = deasyncPromise(serverless.variables.populateProperty(deployVariables, false))
+    serverless.service.deployVariables = _.merge(vars.default || {  }, vars[stage]) // eslint-disable-line
     const envs = deasyncPromise(serverless.variables.populateProperty(deployEnvironment, false)) // eslint-disable-line
     serverless.service.deployEnvironment = _.merge(envs.default || { }, envs[stage]) // eslint-disable-line
   }
