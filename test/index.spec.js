@@ -14,7 +14,7 @@ function initServerlessPlugin(sls) {
 }
 
 test.beforeEach(t => {
-  t.context.sandbox = sinon.sandbox.create()
+  t.context.sandbox = sinon.createSandbox()
 })
 
 test.afterEach.always(t => {
@@ -24,7 +24,7 @@ test.afterEach.always(t => {
 test('Throws if no stage is found', t => {
   const sls = new Serverless()
 
-  t.throws(() => initServerlessPlugin(sls), /No stage found.*/)
+  t.throws(() => initServerlessPlugin(sls), { message: /No stage found.*/ })
 })
 
 test('Uses default values if no configuration', t => {
@@ -155,6 +155,7 @@ test('Credstash variables populate', async t => {
   const sls = new Serverless()
 
   sls.service.custom = _.cloneDeep(CREDSTASH_CONFIG)
+  sls.service.provider.region = 'stubRegion'
 
   const plugin = initServerlessPlugin(sls)
   t.context.sandbox.stub(plugin.credstash, 'get').callsFake((name, cb) => {
@@ -168,12 +169,14 @@ test('Throws if credstash errors', async t => {
   const sls = new Serverless()
 
   sls.service.custom = _.cloneDeep(CREDSTASH_CONFIG)
+  sls.service.provider.region = 'stubRegion'
 
   const plugin = initServerlessPlugin(sls)
   t.context.sandbox.stub(plugin.credstash, 'get').callsFake((name, cb) => {
     cb(new Error('This is my test error'))
   })
-  await t.throws(sls.variables.populateService(), /This is my test error/)
+
+  await t.throwsAsync(() => sls.variables.populateService(), { message: /This is my test error/ })
 })
 
 test('Skips credstash populate if requested', async t => {
@@ -195,7 +198,7 @@ test('Throws if populating credstash and no region is specified', async t => {
   sls.service.provider.region = null
 
   initServerlessPlugin(sls)
-  await t.throws(sls.variables.populateService(), /Cannot hydrate Credstash.*/)
+  await t.throwsAsync(() => sls.variables.populateService(), { message: /Cannot hydrate Credstash.*/ })
 })
 
 test('Merges environment', async t => {
