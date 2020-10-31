@@ -83,6 +83,8 @@ custom:
 Please note that because these are resolved at build time, the plain-text passwords WILL be viewable in Cloudformation and on the Lambda dashboard.
 
 # Version History
+* 2.0.0
+  - Require a more modern version of node and remove the old babel runtime dependency.
 * 1.2.0
   - Allow default stage population for variables (Thanks @FluxAugur!)
 * 1.1.0
