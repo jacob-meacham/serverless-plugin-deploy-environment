@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/index.js | serverless-plugin-deploy-environment</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Plugin the augments the serverless provider environment with deployment variables"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="serverless-plugin-deploy-environment"><meta property="twitter:description" content="Plugin the augments the serverless provider environment with deployment variables"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/DopplerLabs/serverless-plugin-deploy-environment"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  </ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import _ from &apos;lodash&apos;
+import AWS from &apos;aws-sdk&apos;
+import childProcess from &apos;child_process&apos;
+import winston from &apos;winston&apos;
+import Credstash from &apos;credstash&apos;
+import deasyncPromise from &apos;deasync-promise&apos;
+
+const CREDSTASH_PREFIX = &apos;credstash&apos;
+
+function _fetchCred(name, credstash) {
+  return new Promise((resolve, reject) =&gt; {
+    credstash.get(name, (err, secret) =&gt; {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(secret)
+      }
+    })
+  })
+}
+
+class ServerlessDeployEnvironment {
+  constructor(serverless, options) {
+    this.serverless = serverless
+    this.credstash = new Credstash()
+
+    // Only meaningful for AWS
+    this.provider = &apos;aws&apos;
+    this.config = serverless.service.custom.deployEnvironment
+    this.options = options
+    this.commands = {
+      runWithEnvironment: {
+        usage: &apos;Runs the specified command with the serverless environment variables set&apos;,
+        lifecycleEvents: [&apos;run&apos;],
+        options: {
+          command: {
+            usage: &apos;The command to run&apos;,
+            shortcut: &apos;c&apos;
+          },
+          stage: {
+            usage: &apos;The stage to use for stage-specific variables&apos;,
+            shortcut: &apos;s&apos;
+          },
+          args: {
+            usage: &apos;Extra arguments to pass through to the subprocess&apos;,
+            shortcut: &apos;a&apos;
+          }
+        }
+      }
+    }
+    // Run automatically as part of the deploy
+    this.hooks = {
+      // Hook before deploying the function
+      &apos;before:deploy:createDeploymentArtifacts&apos;: () =&gt; this._addDeployEnvironment(),
+      // Hook before running sls offline
+      &apos;before:offline:start:init&apos;: () =&gt; this._addDeployEnvironment(),
+      // Hook before running sls webpack invoke
+      &apos;before:webpack:invoke:invoke&apos;: () =&gt; this._addDeployEnvironment(),
+      // Command hook
+      &apos;runWithEnvironment:run&apos;: () =&gt; this._runWithEnvironment()
+    }
+
+    const stage = options.stage || _.get(serverless, &apos;service.custom.defaults.stage&apos;)
+    if (!stage) {
+      throw new Error(&apos;No stage found for serverless-plugin-deploy-environment&apos;)
+    }
+    winston.debug(`Getting deploy variables for stage ${stage}`)
+
+    // TODO: This doesn&apos;t belong here, but we need to set the options before populating the new properties.
+    serverless.variables.options = options // eslint-disable-line
+
+    // Allow credstash variables to be resolved
+    // TODO(msills): Break into a separate plugin
+    const delegate = serverless.variables.getValueFromSource.bind(serverless.variables)
+    const credstash = this.credstash
+    serverless.variables.getValueFromSource = function getValueFromSource(variableString) { // eslint-disable-line no-param-reassign, max-len
+      if (variableString.startsWith(`${CREDSTASH_PREFIX}:`)) {
+        // If we are not to resolve credstash variables here, just write the variable through unchanged
+        if (options.credstash &amp;&amp; options.credstash !== &apos;true&apos;) {
+          winston.info(`Skipping credstash resolution for variable &apos;${variableString}&apos;`)
+          return Promise.resolve(variableString)
+        }
+
+        // Configure the AWS region
+        const region = serverless.service.provider.region
+        if (!region) {
+          return Promise.reject(new Error(&apos;Cannot hydrate Credstash variables without a region&apos;))
+        }
+        AWS.config.update({ region })
+
+        const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]
+        return _fetchCred(key, credstash)
+      }
+
+      return delegate(variableString)
+    }
+
+    if (!serverless.service.custom.deploy) {
+      winston.warn(&apos;No deploy object found in custom, even though the serverless-deploy-environment plugin is loaded.&apos;)
+    }
+
+    const deployVariables = _.get(serverless, &apos;service.custom.deploy.variables&apos;, { })
+    const deployEnvironment = _.get(serverless, &apos;service.custom.deploy.environments&apos;, { })
+
+    // Explicitly load the variable syntax, so that calls to populateProperty work
+    // TODO(msills): Figure out how to avoid this. For now, it seems safe.
+    serverless.variables.loadVariableSyntax()
+    // Explicitly resolve these here, so that we can apply any transformations that we want
+    const vars = deasyncPromise(serverless.variables.populateProperty(deployVariables, false))
+    serverless.service.deployVariables = _.merge(vars.default || {  }, vars[stage]) // eslint-disable-line
+    const envs = deasyncPromise(serverless.variables.populateProperty(deployEnvironment, false)) // eslint-disable-line
+    serverless.service.deployEnvironment = _.merge(envs.default || { }, envs[stage]) // eslint-disable-line
+  }
+
+  async _resolveDeployEnvironment() {
+    return this.serverless.service.deployEnvironment
+  }
+
+  async _addDeployEnvironment() {
+    const env = await this._resolveDeployEnvironment()
+    // Make sure that the environment exists (if no environment is specified, it&apos;s undefined), and augment it with the
+    // scoped environment
+    this.serverless.service.provider.environment = _.extend(this.serverless.service.provider.environment, env)
+  }
+
+  async _runWithEnvironment() {
+    const deployEnv = await this._resolveDeployEnvironment()
+    const env = {}
+    _.merge(env, process.env, deployEnv) // Merge the current environment, overridden with the deploy environment
+    const args = this.options.args || &apos;&apos;
+    const output = childProcess.execSync(`${this.options.command} ${args}`, { env, cwd: process.cwd() }).toString()
+    for (const line of output.split(&apos;\n&apos;)) {
+      winston.info(`[COMMAND OUTPUT]: ${line}`)
+    }
+  }
+}
+
+module.exports = ServerlessDeployEnvironment
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
