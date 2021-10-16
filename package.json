@@ -1,6 +1,6 @@
 {
   "name": "serverless-plugin-deploy-environment",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Plugin the augments the serverless provider environment with deployment variables",
   "main": "lib/index.js",
   "files": [
