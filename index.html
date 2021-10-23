@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | serverless-plugin-deploy-environment</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Plugin the augments the serverless provider environment with deployment variables"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="serverless-plugin-deploy-environment"><meta property="twitter:description" content="Plugin the augments the serverless provider environment with deployment variables"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/DopplerLabs/serverless-plugin-deploy-environment"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  </ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="serverless-plugin-deploy-environment">serverless-plugin-deploy-environment</h1><p><a href="http://www.serverless.com"><img src="http://public.serverless.com/badges/v3.svg" alt="serverless"></a>
+<a href="https://coveralls.io/github/DopplerLabs/serverless-plugin-deploy-environment?branch=develop"><img src="https://coveralls.io/repos/github/DopplerLabs/serverless-plugin-deploy-environment/badge.svg?branch=develop" alt="Coverage Status"></a>
+<a href="https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment"><img src="https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment.svg?branch=develop" alt="Build Status"></a></p>
+<p>This plugin exposes per-stage deployment variables and deployment environment, and allows users to run commands with the environment of a given stage. The defined deployment environment is automatically merged with the serverless provider environment. It also optionally resolves <a href="https://github.com/fugue/credstash">credstash</a> variables. The benefit of this is that its simpler to manage different variables for each environment, and makes the addition of default environment variables simple.</p>
+<p>See our <a href="https://jemonjam.com/serverless-plugin-deploy-environment">docs</a> for full documentation.</p>
+<h1 id="usage">Usage</h1><h2 id="basic-usage">Basic Usage</h2><pre><code class="lang-yaml"><code class="source-code prettyprint">provider:
+  region: us-west-2
+custom:
+  deploy:
+    variables:
+      dev:
+        role: &quot;devRole&quot;
+        streamArn: &quot;devStream&quot;
+      staging:
+        role: &quot;stagingRole&quot;
+        streamArn: &quot;stagingStream&quot;
+    environments:
+      # These will be added to all environments
+      default:
+        LAMBDA_LOG_LEVEL: info
+        LAMBDA_REGION: ${self:provider.region} # All references are resolved
+        LAMBDA_ES_HOST:
+          &apos;Fn::GetAtt&apos;: [ &apos;ESCluster&apos;, &apos;DomainEndpoint&apos; ]
+      dev:
+        LAMBDA_ES_HOST: localhost
+
+plugins:
+  - serverless-plugin-deploy-environment</code>
+</code></pre>
+<p>Given this config, running with <code>sls deploy --stage dev</code> would yield the following resolved configuration</p>
+<pre><code class="lang-yaml"><code class="source-code prettyprint">deployVariables:
+  role: &quot;devRole&quot;
+  streamArn: &quot;devStream&quot;
+deployEnvironment:
+  LAMBDA_LOG_LEVEL: info
+  LAMBDA_REGION: us-west-2
+  LAMBDA_ES_HOST: localhost</code>
+</code></pre>
+<h2 id="running-in-an-environment">Running in an Environment</h2><p>This plugin also exposes a command to run with the stage environment exposed. Give the above config, the command
+<code>sls runWithEnvironment --command &apos;echo $LAMBDA_ES_HOST&apos; --stage &apos;dev&apos;</code> will output <code>localhost</code>.</p>
+<h2 id="production-usage">Production Usage</h2><p>The way that we use this at Doppler is that we have two separate configuration files at config/deploy.yml and config/variables.yml. All of the variables defined in deploy.yml will become environment variables, and everything in variables.yml are internal variables used to resolve references elsewhere in serverless.yml. Then, in our main serverless.yml file, we have</p>
+<pre><code class="lang-yaml"><code class="source-code prettyprint">custom:
+  deploy:
+    variables: ${file(config/variables.yml)}
+    environments: ${file(config/deploy.yml)}
+
+provider:
+  # ... Other static properties
+  domain: ${self:deployVariables.domain}
+  role: ${self:deployVariables.role}</code>
+</code></pre>
+<h1 id="credstash">Credstash</h1><p>This plugin also offers the ability to resolve credstash secrets anywhere in the Serverless configuration. First, set up credstash by following the instructions <a href="https://github.com/fugue/credstash">here</a>. Then, in your configuration file, you can add:</p>
+<pre><code class="lang-yaml"><code class="source-code prettyprint">custom:
+  deploy:
+    environments:
+      staging:
+        MY_PASSWORD: ${credstash:stagingPassword}
+      production:
+        MY_PASSWORD: ${credstash:productionPassword}
+
+</code>
+</code></pre>
+<p>Please note that because these are resolved at build time, the plain-text passwords WILL be viewable in Cloudformation and on the Lambda dashboard.</p>
+<h1 id="version-history">Version History</h1><ul>
+<li>2.0.2<ul>
+<li>Fix CLI warning (Thanks @onhate!)</li>
+</ul>
+</li>
+<li>2.0.1<ul>
+<li>Dependency security updates</li>
+</ul>
+</li>
+<li>2.0.0<ul>
+<li>Require a more modern version of node and remove the old babel runtime dependency.</li>
+</ul>
+</li>
+<li>1.2.0<ul>
+<li>Allow default stage population for variables (Thanks @FluxAugur!)</li>
+</ul>
+</li>
+<li>1.1.0<ul>
+<li>Change invocation target, to play nicely with other offline plugins (like serverless-offline-sns)</li>
+</ul>
+</li>
+<li>1.0.3<ul>
+<li>Fix packaging issue</li>
+</ul>
+</li>
+<li>1.0.2<ul>
+<li>Bump version of credstash to deal with change in API (Thanks @concon121)</li>
+</ul>
+</li>
+<li>1.0.1<ul>
+<li>Fix publishing issue</li>
+</ul>
+</li>
+<li>1.0.0<ul>
+<li>Initial release</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

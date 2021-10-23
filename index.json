@@ -1,0 +1,853 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "import _ from 'lodash'\nimport AWS from 'aws-sdk'\nimport childProcess from 'child_process'\nimport winston from 'winston'\nimport Credstash from 'credstash'\nimport deasyncPromise from 'deasync-promise'\n\nconst CREDSTASH_PREFIX = 'credstash'\n\nfunction _fetchCred(name, credstash) {\n  return new Promise((resolve, reject) => {\n    credstash.get(name, (err, secret) => {\n      if (err) {\n        reject(err)\n      } else {\n        resolve(secret)\n      }\n    })\n  })\n}\n\nclass ServerlessDeployEnvironment {\n  constructor(serverless, options) {\n    this.serverless = serverless\n    this.credstash = new Credstash()\n\n    // Only meaningful for AWS\n    this.provider = 'aws'\n    this.config = serverless.service.custom.deployEnvironment\n    this.options = options\n    this.commands = {\n      runWithEnvironment: {\n        usage: 'Runs the specified command with the serverless environment variables set',\n        lifecycleEvents: ['run'],\n        options: {\n          command: {\n            usage: 'The command to run',\n            shortcut: 'c'\n          },\n          stage: {\n            usage: 'The stage to use for stage-specific variables',\n            shortcut: 's'\n          },\n          args: {\n            usage: 'Extra arguments to pass through to the subprocess',\n            shortcut: 'a'\n          }\n        }\n      }\n    }\n    // Run automatically as part of the deploy\n    this.hooks = {\n      // Hook before deploying the function\n      'before:deploy:createDeploymentArtifacts': () => this._addDeployEnvironment(),\n      // Hook before running sls offline\n      'before:offline:start:init': () => this._addDeployEnvironment(),\n      // Hook before running sls webpack invoke\n      'before:webpack:invoke:invoke': () => this._addDeployEnvironment(),\n      // Command hook\n      'runWithEnvironment:run': () => this._runWithEnvironment()\n    }\n\n    const stage = options.stage || _.get(serverless, 'service.custom.defaults.stage')\n    if (!stage) {\n      throw new Error('No stage found for serverless-plugin-deploy-environment')\n    }\n    winston.debug(`Getting deploy variables for stage ${stage}`)\n\n    // TODO: This doesn't belong here, but we need to set the options before populating the new properties.\n    serverless.variables.options = options // eslint-disable-line\n\n    // Allow credstash variables to be resolved\n    // TODO(msills): Break into a separate plugin\n    const delegate = serverless.variables.getValueFromSource.bind(serverless.variables)\n    const credstash = this.credstash\n    serverless.variables.getValueFromSource = function getValueFromSource(variableString) { // eslint-disable-line no-param-reassign, max-len\n      if (variableString.startsWith(`${CREDSTASH_PREFIX}:`)) {\n        // If we are not to resolve credstash variables here, just write the variable through unchanged\n        if (options.credstash && options.credstash !== 'true') {\n          winston.info(`Skipping credstash resolution for variable '${variableString}'`)\n          return Promise.resolve(variableString)\n        }\n\n        // Configure the AWS region\n        const region = serverless.service.provider.region\n        if (!region) {\n          return Promise.reject(new Error('Cannot hydrate Credstash variables without a region'))\n        }\n        AWS.config.update({ region })\n\n        const key = variableString.split(`${CREDSTASH_PREFIX}:`)[1]\n        return _fetchCred(key, credstash)\n      }\n\n      return delegate(variableString)\n    }\n\n    if (!serverless.service.custom.deploy) {\n      winston.warn('No deploy object found in custom, even though the serverless-deploy-environment plugin is loaded.')\n    }\n\n    const deployVariables = _.get(serverless, 'service.custom.deploy.variables', { })\n    const deployEnvironment = _.get(serverless, 'service.custom.deploy.environments', { })\n\n    // Explicitly load the variable syntax, so that calls to populateProperty work\n    // TODO(msills): Figure out how to avoid this. For now, it seems safe.\n    serverless.variables.loadVariableSyntax()\n    // Explicitly resolve these here, so that we can apply any transformations that we want\n    const vars = deasyncPromise(serverless.variables.populateProperty(deployVariables, false))\n    serverless.service.deployVariables = _.merge(vars.default || {  }, vars[stage]) // eslint-disable-line\n    const envs = deasyncPromise(serverless.variables.populateProperty(deployEnvironment, false)) // eslint-disable-line\n    serverless.service.deployEnvironment = _.merge(envs.default || { }, envs[stage]) // eslint-disable-line\n  }\n\n  async _resolveDeployEnvironment() {\n    return this.serverless.service.deployEnvironment\n  }\n\n  async _addDeployEnvironment() {\n    const env = await this._resolveDeployEnvironment()\n    // Make sure that the environment exists (if no environment is specified, it's undefined), and augment it with the\n    // scoped environment\n    this.serverless.service.provider.environment = _.extend(this.serverless.service.provider.environment, env)\n  }\n\n  async _runWithEnvironment() {\n    const deployEnv = await this._resolveDeployEnvironment()\n    const env = {}\n    _.merge(env, process.env, deployEnv) // Merge the current environment, overridden with the deploy environment\n    const args = this.options.args || ''\n    const output = childProcess.execSync(`${this.options.command} ${args}`, { env, cwd: process.cwd() }).toString()\n    for (const line of output.split('\\n')) {\n      winston.info(`[COMMAND OUTPUT]: ${line}`)\n    }\n  }\n}\n\nmodule.exports = ServerlessDeployEnvironment\n",
+    "static": true,
+    "longname": "/home/travis/build/jacob-meacham/serverless-plugin-deploy-environment/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "variable",
+    "name": "CREDSTASH_PREFIX",
+    "memberof": "src/index.js",
+    "static": true,
+    "longname": "src/index.js~CREDSTASH_PREFIX",
+    "access": "public",
+    "export": false,
+    "importPath": "serverless-plugin-deploy-environment/src/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "function",
+    "name": "_fetchCred",
+    "memberof": "src/index.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~_fetchCred",
+    "access": "private",
+    "export": false,
+    "importPath": "serverless-plugin-deploy-environment/src/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "name",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "credstash",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "class",
+    "name": "ServerlessDeployEnvironment",
+    "memberof": "src/index.js",
+    "static": true,
+    "longname": "src/index.js~ServerlessDeployEnvironment",
+    "access": "public",
+    "export": false,
+    "importPath": "serverless-plugin-deploy-environment/src/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "member",
+    "name": "serverless",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#serverless",
+    "access": "public",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "member",
+    "name": "credstash",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#credstash",
+    "access": "public",
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "member",
+    "name": "provider",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#provider",
+    "access": "public",
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "member",
+    "name": "config",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#config",
+    "access": "public",
+    "description": null,
+    "lineNumber": 29,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "options",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#options",
+    "access": "public",
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "member",
+    "name": "commands",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#commands",
+    "access": "public",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"runWithEnvironment\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "member",
+    "name": "hooks",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#hooks",
+    "access": "public",
+    "description": null,
+    "lineNumber": 52,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"before:deploy:createDeploymentArtifacts\": *, \"before:offline:start:init\": *, \"before:webpack:invoke:invoke\": *, \"runWithEnvironment:run\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "name": "_resolveDeployEnvironment",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#_resolveDeployEnvironment",
+    "access": "private",
+    "description": null,
+    "lineNumber": 115,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "_addDeployEnvironment",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#_addDeployEnvironment",
+    "access": "private",
+    "description": null,
+    "lineNumber": 119,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 62,
+    "kind": "method",
+    "name": "_runWithEnvironment",
+    "memberof": "src/index.js~ServerlessDeployEnvironment",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/index.js~ServerlessDeployEnvironment#_runWithEnvironment",
+    "access": "private",
+    "description": null,
+    "lineNumber": 126,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "kind": "index",
+    "content": "# serverless-plugin-deploy-environment\n[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)\n[![Coverage Status](https://coveralls.io/repos/github/DopplerLabs/serverless-plugin-deploy-environment/badge.svg?branch=develop)](https://coveralls.io/github/DopplerLabs/serverless-plugin-deploy-environment?branch=develop)\n[![Build Status](https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment.svg?branch=develop)](https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment)\n\nThis plugin exposes per-stage deployment variables and deployment environment, and allows users to run commands with the environment of a given stage. The defined deployment environment is automatically merged with the serverless provider environment. It also optionally resolves [credstash](https://github.com/fugue/credstash) variables. The benefit of this is that its simpler to manage different variables for each environment, and makes the addition of default environment variables simple.\n\nSee our [docs](https://jemonjam.com/serverless-plugin-deploy-environment ) for full documentation.\n\n# Usage\n## Basic Usage\n```yaml\nprovider:\n  region: us-west-2\ncustom:\n  deploy:\n    variables:\n      dev:\n        role: \"devRole\"\n        streamArn: \"devStream\"\n      staging:\n        role: \"stagingRole\"\n        streamArn: \"stagingStream\"\n    environments:\n      # These will be added to all environments\n      default:\n        LAMBDA_LOG_LEVEL: info\n        LAMBDA_REGION: ${self:provider.region} # All references are resolved\n        LAMBDA_ES_HOST:\n          'Fn::GetAtt': [ 'ESCluster', 'DomainEndpoint' ]\n      dev:\n        LAMBDA_ES_HOST: localhost\n\nplugins:\n  - serverless-plugin-deploy-environment\n```\n\nGiven this config, running with `sls deploy --stage dev` would yield the following resolved configuration\n```yaml\ndeployVariables:\n  role: \"devRole\"\n  streamArn: \"devStream\"\ndeployEnvironment:\n  LAMBDA_LOG_LEVEL: info\n  LAMBDA_REGION: us-west-2\n  LAMBDA_ES_HOST: localhost\n```\n\n## Running in an Environment\nThis plugin also exposes a command to run with the stage environment exposed. Give the above config, the command\n`sls runWithEnvironment --command 'echo $LAMBDA_ES_HOST' --stage 'dev'` will output `localhost`.\n\n## Production Usage\nThe way that we use this at Doppler is that we have two separate configuration files at config/deploy.yml and config/variables.yml. All of the variables defined in deploy.yml will become environment variables, and everything in variables.yml are internal variables used to resolve references elsewhere in serverless.yml. Then, in our main serverless.yml file, we have\n\n```yaml\ncustom:\n  deploy:\n    variables: ${file(config/variables.yml)}\n    environments: ${file(config/deploy.yml)}\n\nprovider:\n  # ... Other static properties\n  domain: ${self:deployVariables.domain}\n  role: ${self:deployVariables.role}\n```\n\n# Credstash\nThis plugin also offers the ability to resolve credstash secrets anywhere in the Serverless configuration. First, set up credstash by following the instructions [here](https://github.com/fugue/credstash). Then, in your configuration file, you can add:\n\n```yaml\ncustom:\n  deploy:\n    environments:\n      staging:\n        MY_PASSWORD: ${credstash:stagingPassword}\n      production:\n        MY_PASSWORD: ${credstash:productionPassword}\n\n\n```\n\nPlease note that because these are resolved at build time, the plain-text passwords WILL be viewable in Cloudformation and on the Lambda dashboard.\n\n# Version History\n* 2.0.2\n  - Fix CLI warning (Thanks @onhate!)\n* 2.0.1\n  - Dependency security updates\n* 2.0.0\n  - Require a more modern version of node and remove the old babel runtime dependency.\n* 1.2.0\n  - Allow default stage population for variables (Thanks @FluxAugur!)\n* 1.1.0\n  - Change invocation target, to play nicely with other offline plugins (like serverless-offline-sns)\n* 1.0.3\n  - Fix packaging issue\n* 1.0.2\n  - Bump version of credstash to deal with change in API (Thanks @concon121)\n* 1.0.1\n  - Fix publishing issue\n* 1.0.0\n  - Initial release\n",
+    "longname": "/home/travis/build/jacob-meacham/serverless-plugin-deploy-environment/README.md",
+    "name": "README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"serverless-plugin-deploy-environment\",\n  \"version\": \"2.0.2\",\n  \"description\": \"Plugin the augments the serverless provider environment with deployment variables\",\n  \"main\": \"lib/index.js\",\n  \"files\": [\n    \"lib\",\n    \"src\"\n  ],\n  \"engines\": {\n    \"node\": \">=12.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/DopplerLabs/serverless-plugin-deploy-environment.git\"\n  },\n  \"keywords\": [\n    \"aws\",\n    \"aws lambda\",\n    \"amazon\",\n    \"amazon web services\",\n    \"serverless\",\n    \"dopplerlabs.com\"\n  ],\n  \"author\": \"Matt Sills\",\n  \"contributors\": [\n    {\n      \"name\": \"Jacob Meacham\",\n      \"url\": \"http://jemonjam.com/\"\n    }\n  ],\n  \"license\": \"MIT\",\n  \"private\": false,\n  \"bugs\": {\n    \"url\": \"https://github.com/DopplerLabs/serverless-plugin-deploy-environment/issues\"\n  },\n  \"homepage\": \"https://github.com/DopplerLabs/serverless-plugin-deploy-environment\",\n  \"scripts\": {\n    \"lint\": \"eslint .\",\n    \"eslint\": \"eslint\",\n    \"test\": \"nyc ava --verbose\",\n    \"test:watch\": \"ava --watch\",\n    \"build:node\": \"cross-env BABEL_ENV=production babel src --out-dir lib\",\n    \"build\": \"npm run lint && npm run test && npm run build:node\",\n    \"docs\": \"esdoc .\",\n    \"docs:deploy\": \"npm run docs && gh-pages -d doc\",\n    \"ci:coverage\": \"nyc report --reporter=text-lcov | coveralls\"\n  },\n  \"dependencies\": {\n    \"credstash\": \"1.0.44\",\n    \"deasync-promise\": \"1.0.1\",\n    \"lodash\": \"4.17.21\",\n    \"winston\": \"2.3.1\"\n  },\n  \"devDependencies\": {\n    \"@ava/babel\": \"1.0.1\",\n    \"@babel/cli\": \"7.12.1\",\n    \"@babel/core\": \"7.12.3\",\n    \"@babel/preset-env\": \"7.12.1\",\n    \"@babel/register\": \"7.12.1\",\n    \"ava\": \"3.13.0\",\n    \"coveralls\": \"3.1.0\",\n    \"cross-env\": \"7.0.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"eslint\": \"7.12.1\",\n    \"eslint-config-standard\": \"16.0.1\",\n    \"eslint-plugin-ava\": \"11.0.0\",\n    \"eslint-plugin-import\": \"2.22.1\",\n    \"eslint-plugin-node\": \"11.1.0\",\n    \"eslint-plugin-promise\": \"4.2.1\",\n    \"eslint-plugin-standard\": \"4.0.2\",\n    \"gh-pages\": \"3.1.0\",\n    \"nyc\": \"15.1.0\",\n    \"rimraf\": \"3.0.2\",\n    \"serverless\": \"2.9.0\",\n    \"sinon\": \"9.2.1\",\n    \"sinon-as-promised\": \"4.0.3\"\n  },\n  \"peerDependencies\": {\n    \"serverless\": \">=1.16.0\"\n  },\n  \"ava\": {\n    \"require\": [\n      \"@babel/register\"\n    ]\n  },\n  \"babel\": {\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"targets\": {\n            \"node\": 12\n          }\n        }\n      ]\n    ]\n  }\n}\n",
+    "longname": "/home/travis/build/jacob-meacham/serverless-plugin-deploy-environment/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]
