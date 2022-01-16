@@ -141,6 +141,31 @@ test('deployEnvironments merges defaults', t => {
   t.deepEqual(sls.service.deployEnvironment, expectedDeployEnvironment)
 })
 
+test('deployEnvironments merges defaults (is not affected by later mutation)', t => {
+  const sls = new Serverless()
+
+  const expectedDeployEnvironment = {
+    a: 2
+  }
+
+  sls.service.custom = {
+    defaults: {
+      stage: 'test'
+    },
+    deploy: {
+      environments: {
+        default: { a: 1 },
+        test: { a: 2 }
+      }
+    }
+  }
+
+  initServerlessPlugin(sls)
+  sls.service.custom.deploy.environments.default.a = 'somehow mutated later'
+
+  t.deepEqual(sls.service.deployEnvironment, expectedDeployEnvironment)
+})
+
 const CREDSTASH_CONFIG = {
   defaults: {
     stage: 'test'
