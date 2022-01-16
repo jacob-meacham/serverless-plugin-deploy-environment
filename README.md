@@ -83,6 +83,8 @@ custom:
 Please note that because these are resolved at build time, the plain-text passwords WILL be viewable in Cloudformation and on the Lambda dashboard.
 
 # Version History
+* 2.1.0
+  - Fix merge mutation issue (Thanks @onhate!)
 * 2.0.2
   - Fix CLI warning (Thanks @onhate!)
 * 2.0.1
