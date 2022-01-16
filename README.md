@@ -1,7 +1,7 @@
 # serverless-plugin-deploy-environment
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
 [![Coverage Status](https://coveralls.io/repos/github/DopplerLabs/serverless-plugin-deploy-environment/badge.svg?branch=develop)](https://coveralls.io/github/DopplerLabs/serverless-plugin-deploy-environment?branch=develop)
-[![Build Status](https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment.svg?branch=develop)](https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment)
+![Build Status](https://github.com/jacob-meacham/serverless-plugin-deploy-environment/actions/workflows/ci.yml/badge.svg)
 
 This plugin exposes per-stage deployment variables and deployment environment, and allows users to run commands with the environment of a given stage. The defined deployment environment is automatically merged with the serverless provider environment. It also optionally resolves [credstash](https://github.com/fugue/credstash) variables. The benefit of this is that its simpler to manage different variables for each environment, and makes the addition of default environment variables simple.
 
