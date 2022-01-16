@@ -44,7 +44,7 @@
     "build": "npm run lint && npm run test && npm run build:node",
     "docs": "esdoc .",
     "docs:deploy": "npm run docs && gh-pages -d doc",
-    "ci:coverage": "nyc report --reporter=text-lcov | coveralls"
+    "ci:coverage": "nyc report --reporter=lcov"
   },
   "dependencies": {
     "credstash": "1.0.44",
