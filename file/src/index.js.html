@@ -71,15 +71,18 @@ class ServerlessDeployEnvironment {
         options: {
           command: {
             usage: &apos;The command to run&apos;,
-            shortcut: &apos;c&apos;
+            shortcut: &apos;c&apos;,
+            type: &apos;string&apos;
           },
           stage: {
             usage: &apos;The stage to use for stage-specific variables&apos;,
-            shortcut: &apos;s&apos;
+            shortcut: &apos;s&apos;,
+            type: &apos;string&apos;
           },
           args: {
             usage: &apos;Extra arguments to pass through to the subprocess&apos;,
-            shortcut: &apos;a&apos;
+            shortcut: &apos;a&apos;,
+            type: &apos;multiple&apos;
           }
         }
       }
@@ -143,9 +146,9 @@ class ServerlessDeployEnvironment {
     serverless.variables.loadVariableSyntax()
     // Explicitly resolve these here, so that we can apply any transformations that we want
     const vars = deasyncPromise(serverless.variables.populateProperty(deployVariables, false))
-    serverless.service.deployVariables = _.merge(vars.default || {  }, vars[stage]) // eslint-disable-line
+    serverless.service.deployVariables = _.merge({}, vars.default || {}, vars[stage]) // eslint-disable-line
     const envs = deasyncPromise(serverless.variables.populateProperty(deployEnvironment, false)) // eslint-disable-line
-    serverless.service.deployEnvironment = _.merge(envs.default || { }, envs[stage]) // eslint-disable-line
+    serverless.service.deployEnvironment = _.merge({}, envs.default || {}, envs[stage]) // eslint-disable-line
   }
 
   async _resolveDeployEnvironment() {
@@ -161,8 +164,7 @@ class ServerlessDeployEnvironment {
 
   async _runWithEnvironment() {
     const deployEnv = await this._resolveDeployEnvironment()
-    const env = {}
-    _.merge(env, process.env, deployEnv) // Merge the current environment, overridden with the deploy environment
+    const env = _.merge({}, process.env, deployEnv) // Merge the current environment, overridden with the deploy environment
     const args = this.options.args || &apos;&apos;
     const output = childProcess.execSync(`${this.options.command} ${args}`, { env, cwd: process.cwd() }).toString()
     for (const line of output.split(&apos;\n&apos;)) {

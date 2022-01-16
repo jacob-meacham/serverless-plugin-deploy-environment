@@ -35,7 +35,7 @@
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="serverless-plugin-deploy-environment">serverless-plugin-deploy-environment</h1><p><a href="http://www.serverless.com"><img src="http://public.serverless.com/badges/v3.svg" alt="serverless"></a>
 <a href="https://coveralls.io/github/DopplerLabs/serverless-plugin-deploy-environment?branch=develop"><img src="https://coveralls.io/repos/github/DopplerLabs/serverless-plugin-deploy-environment/badge.svg?branch=develop" alt="Coverage Status"></a>
-<a href="https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment"><img src="https://travis-ci.org/DopplerLabs/serverless-plugin-deploy-environment.svg?branch=develop" alt="Build Status"></a></p>
+<img src="https://github.com/jacob-meacham/serverless-plugin-deploy-environment/actions/workflows/ci.yml/badge.svg" alt="Build Status"></p>
 <p>This plugin exposes per-stage deployment variables and deployment environment, and allows users to run commands with the environment of a given stage. The defined deployment environment is automatically merged with the serverless provider environment. It also optionally resolves <a href="https://github.com/fugue/credstash">credstash</a> variables. The benefit of this is that its simpler to manage different variables for each environment, and makes the addition of default environment variables simple.</p>
 <p>See our <a href="https://jemonjam.com/serverless-plugin-deploy-environment">docs</a> for full documentation.</p>
 <h1 id="usage">Usage</h1><h2 id="basic-usage">Basic Usage</h2><pre><code class="lang-yaml"><code class="source-code prettyprint">provider:
@@ -97,6 +97,10 @@ provider:
 </code></pre>
 <p>Please note that because these are resolved at build time, the plain-text passwords WILL be viewable in Cloudformation and on the Lambda dashboard.</p>
 <h1 id="version-history">Version History</h1><ul>
+<li>2.1.0<ul>
+<li>Fix merge mutation issue (Thanks @onhate!)</li>
+</ul>
+</li>
 <li>2.0.2<ul>
 <li>Fix CLI warning (Thanks @onhate!)</li>
 </ul>
