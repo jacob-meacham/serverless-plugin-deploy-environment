@@ -35,15 +35,18 @@ class ServerlessDeployEnvironment {
         options: {
           command: {
             usage: 'The command to run',
-            shortcut: 'c'
+            shortcut: 'c',
+            type: 'string'
           },
           stage: {
             usage: 'The stage to use for stage-specific variables',
-            shortcut: 's'
+            shortcut: 's',
+            type: 'string'
           },
           args: {
             usage: 'Extra arguments to pass through to the subprocess',
-            shortcut: 'a'
+            shortcut: 'a',
+            type: 'multiple'
           }
         }
       }
@@ -107,9 +110,9 @@ class ServerlessDeployEnvironment {
     serverless.variables.loadVariableSyntax()
     // Explicitly resolve these here, so that we can apply any transformations that we want
     const vars = deasyncPromise(serverless.variables.populateProperty(deployVariables, false))
-    serverless.service.deployVariables = _.merge(vars.default || {  }, vars[stage]) // eslint-disable-line
+    serverless.service.deployVariables = _.merge({}, vars.default || {}, vars[stage]) // eslint-disable-line
     const envs = deasyncPromise(serverless.variables.populateProperty(deployEnvironment, false)) // eslint-disable-line
-    serverless.service.deployEnvironment = _.merge(envs.default || { }, envs[stage]) // eslint-disable-line
+    serverless.service.deployEnvironment = _.merge({}, envs.default || {}, envs[stage]) // eslint-disable-line
   }
 
   async _resolveDeployEnvironment() {
@@ -125,8 +128,7 @@ class ServerlessDeployEnvironment {
 
   async _runWithEnvironment() {
     const deployEnv = await this._resolveDeployEnvironment()
-    const env = {}
-    _.merge(env, process.env, deployEnv) // Merge the current environment, overridden with the deploy environment
+    const env = _.merge({}, process.env, deployEnv) // Merge the current environment, overridden with the deploy environment
     const args = this.options.args || ''
     const output = childProcess.execSync(`${this.options.command} ${args}`, { env, cwd: process.cwd() }).toString()
     for (const line of output.split('\n')) {
